@@ -48,6 +48,23 @@ class ParkingLot(models.Model):
 	location = models.CharField(choices=LOT_CHOICES, unique=True,
 								primary_key=True)
 	# parkingrating_set
+	
+	@property
+	def current_ratings(self):
+		# Return a QuerySet containing only valid ParkingRatings
+		# (those ratings that aren't from a previous gameday)
+		return self.parkingrating_set.all()
+	
+	def get_rating(self):
+		# Get the current rating of this parking lot
+		NUM_LOTS = 10
+		if self.current_ratings.count() < NUM_LOTS:
+			# Probably raise an exception here, not enough responses yet
+			pass
+		else:
+			total = sum([ ParkingRating.RATING_WEIGHTS[r.rating]
+				for r in self.parkingrating_set.all().order_by('created')[0:10] ])
+			return total / NUM_LOTS
 
 class ParkingRating(models.Model):
 
@@ -61,6 +78,12 @@ class ParkingRating(models.Model):
 		(RATING_BUSY, 'Busy'),
 		(RATING_FULL, 'Full'),
 	)
+	RATING_WEIGHTS = {
+		RATING_EMPTY: 0,
+		RATING_SCATTERED: 33,
+		RATING_BUSY: 66,
+		RATING_FULL: 100,
+	}
 
 	rating = models.CharField(max_length=10, choices=RATING_CHOICES)
 	created = models.DateTimeField(default=datetime.datetime.now)
