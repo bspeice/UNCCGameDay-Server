@@ -62,7 +62,7 @@ class ParkingLot(models.Model):
 			return None
 		else:
 			total = sum([ ParkingRating.RATING_WEIGHTS[r.rating]
-				for r in self.parkingrating_set.all().order_by('created')[0:10] ])
+				for r in self.parkingrating_set.all().order_by('-created')[0:10] ])
 			return total / NUM_LOTS
 
 class ParkingRating(models.Model):
