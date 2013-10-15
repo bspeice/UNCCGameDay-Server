@@ -8,3 +8,8 @@ class ParkingLotSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = ParkingLot
 		fields = ('location', 'filled_pct')
+
+class ParkingRatingSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = ParkingRating
+		fields = ('rating', 'parking_lot',)
