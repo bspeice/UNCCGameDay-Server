@@ -5,7 +5,7 @@ from datetime import datetime
 # Create your models here.
 class RegisteredUser(models.Model):
 
-	date_registered = models.DateTimeField()
+	date_registered = models.DateTimeField(default=datetime.now)
 	first_name = models.CharField(max_length=64)
 	last_name = models.CharField(max_length=64)
 	section = models.CharField(max_length=8)
@@ -46,7 +46,7 @@ class ParkingLot(models.Model):
 
 	# Only one ParkingLot per location
 	location = models.CharField(choices=LOT_CHOICES, unique=True,
-								primary_key=True)
+								primary_key=True, max_length=8)
 	# parkingrating_set
 	
 	@property
@@ -59,8 +59,7 @@ class ParkingLot(models.Model):
 		# Get the current rating of this parking lot
 		NUM_LOTS = 10
 		if self.current_ratings.count() < NUM_LOTS:
-			# Probably raise an exception here, not enough responses yet
-			pass
+			return None
 		else:
 			total = sum([ ParkingRating.RATING_WEIGHTS[r.rating]
 				for r in self.parkingrating_set.all().order_by('created')[0:10] ])
@@ -86,5 +85,5 @@ class ParkingRating(models.Model):
 	}
 
 	rating = models.CharField(max_length=10, choices=RATING_CHOICES)
-	created = models.DateTimeField(default=datetime.datetime.now)
+	created = models.DateTimeField(default=datetime.now)
 	parking_lot = models.ForeignKey(ParkingLot)

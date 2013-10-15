@@ -1,5 +1,8 @@
 *.pyc
+*.sqlite
+*.sublime*
 bin/
 include/
 lib/
 local/
+.codeintel/
