@@ -17,12 +17,19 @@ class ParkingLotList(APIView):
 
 class RateLot(APIView):
 	"""
-	Rate a parking lot
+	Rate a parking lot  	
+	**GET**: Get the rating choice options  
+	**POST**: Rate a parking lot
 	"""
 
 	def post(self, request):
+		'Rate a parking lot'
 		rating = ParkingRatingSerializer(data=request.DATA)
 		if rating.is_valid():
 			rating.save()
 			return Response(rating.data)
 		return Response(rating.errors, status=status.HTTP_400_BAD_REQUEST)
+
+	def get(self, request):
+		'Get the rating choice options'
+		return Response(ParkingRating.RATING_CHOICES)
