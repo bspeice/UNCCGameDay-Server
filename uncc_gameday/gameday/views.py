@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 
 from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
 
 @api_view(('GET',))
 def api_root(request):
@@ -32,8 +33,9 @@ class SingleParkingLotList(APIView):
 	"""
 
 	def get(self, request, lot):
-		parking_lot = ParkingLot.objects.filter(location=lot)
-		return Response(ParkingLotSerializer(parking_lot))
+		print "Received lot: '" + lot + "'"
+		parking_lot = get_object_or_404(ParkingLot, location=lot)
+		return Response(ParkingLotSerializer(parking_lot).data)
 
 class RateLot(APIView):
 	"""
