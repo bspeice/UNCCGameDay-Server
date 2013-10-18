@@ -1,6 +1,7 @@
 *.pyc
 *.sqlite
 *.sublime*
+*.swp
 bin/
 include/
 lib/

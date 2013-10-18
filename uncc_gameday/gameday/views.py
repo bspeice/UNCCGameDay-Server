@@ -26,6 +26,15 @@ class ParkingLotList(APIView):
 		serializer = ParkingLotSerializer(parking_lots, many=True)
 		return Response(serializer.data)
 
+class SingleParkingLotList(APIView):
+	"""
+	List a single parking lot
+	"""
+
+	def get(self, request, lot):
+		parking_lot = ParkingLot.objects.filter(location=lot)
+		return Response(ParkingLotSerializer(parking_lot))
+
 class RateLot(APIView):
 	"""
 	Rate a parking lot  	
