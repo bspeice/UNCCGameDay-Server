@@ -18,6 +18,6 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 
-	url(r'^gameday/', include('gameday.urls')),
 	url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
+	url(r'', include('gameday.urls')),
 )
