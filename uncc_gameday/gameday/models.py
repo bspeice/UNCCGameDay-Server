@@ -84,6 +84,6 @@ class ParkingRating(models.Model):
 		RATING_FULL: 100,
 	}
 
-	rating = models.CharField(max_length=10, choices=RATING_CHOICES)
+	rating = models.CharField(max_length=3, choices=RATING_CHOICES)
 	created = models.DateTimeField(default=datetime.now)
 	parking_lot = models.ForeignKey(ParkingLot)
