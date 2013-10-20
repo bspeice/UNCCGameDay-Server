@@ -89,3 +89,19 @@ class ListRegisteredUsers(APIView):
 		'Get the information for a registered user'
 		user = get_object_or_404(RegisteredUser, id=id)
 		return Response(UserSerializer(user).data)
+
+class ListRegisteredUserByName(APIView):
+	"""
+	Get a registered user by looking up their first and last name.
+	This isn't a PK lookup, so we get the one registered most recently.
+	"""
+
+	def get(self, request, fname, lname):
+		'Get the information for a specified user'
+		user = RegisteredUser.objects.filter(first_name=fname, last_name=lname)\
+				.order_by("-id")[0]
+		if user is None:
+			return Response("User not found with first_name '%s' and last_name '%s'",
+					status=status.HTTP_404_NOT_FOUND)
+		else:
+			return Response(SingleUserSerializer(user).data)
