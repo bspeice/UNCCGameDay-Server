@@ -56,3 +56,36 @@ class RateLot(APIView):
 	def get(self, request):
 		'Get the rating choice options'
 		return Response(ParkingRating.RATING_CHOICES)
+
+class RegisterUser(APIView):
+	"""
+	Handle Registration of users  
+	**GET**: Get the current information of a registered user by ID  
+	**POST**: Register a new user  
+	"""
+	def get(self, request):
+		'Get the first and last names of all registered users'
+		users = RegisteredUser.objects.all()
+		users_s = SingleUserSerializer(users, many=True)
+		return Response(users_s.data)
+	
+	def post(self, request):
+		'Register a new user'
+		user = UserSerializer(data=request.DATA)
+		if user.is_valid():
+			user.save()
+			return Response(user.data)
+		return Response(user.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ListRegisteredUsers(APIView):
+	"""
+	List all registered users.
+	We have a separate view set up so we can list all information about one
+	user at a time (this one), and one view to get just id, first_name,
+	and last_name of all users.
+	"""
+
+	def get(self, request, id):
+		'Get the information for a registered user'
+		user = get_object_or_404(RegisteredUser, id=id)
+		return Response(UserSerializer(user).data)

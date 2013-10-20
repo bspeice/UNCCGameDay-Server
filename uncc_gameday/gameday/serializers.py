@@ -13,3 +13,13 @@ class ParkingRatingSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = ParkingRating
 		fields = ('rating', 'parking_lot',)
+
+class UserSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = RegisteredUser
+		fields = ('first_name', 'last_name', 'section', 'row')
+
+class SingleUserSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = RegisteredUser
+		fields = ('id', 'first_name', 'last_name')

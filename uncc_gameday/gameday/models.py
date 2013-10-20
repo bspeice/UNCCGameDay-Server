@@ -8,8 +8,8 @@ class RegisteredUser(models.Model):
 	date_registered = models.DateTimeField(default=datetime.now)
 	first_name = models.CharField(max_length=64)
 	last_name = models.CharField(max_length=64)
-	section = models.CharField(max_length=8)
-	row = models.IntegerField()
+	section = models.CharField(max_length=8, null=True, blank=True)
+	row = models.IntegerField(null=True, blank=True)
 
 class ParkingLot(models.Model):
 
