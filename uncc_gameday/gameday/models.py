@@ -38,11 +38,21 @@ class ParkingLot(models.Model):
 		(LOT_GOLD, 'Gold'),
 	)
 
-	LOT_LOCATIONS = (
-		# Put the parking lot locations here. Something like:
-		# (LOT_GREEN, '(11.23.43, 11.83.12)'),
-		(None, None),
-	)
+	LOT_ENTRANCES = {
+		# Put the parking lot entrances here. Something like:
+		# PARKING_LOT: (<latitude>, <longitude>, <label>),
+		LOT_GOLD: (35.31255, -80.74297, 'Gold Entrance'), # Lower Tryon
+		LOT_GREEN: (35.31255, -80.74297, 'Green Entrance'), # Lower Tryon
+		LOT_BLACK: (35.31698, -80.72668, 'Black Entrance'), # Mallard Creek
+		LOT_RED: (35.30185, -80.74655, 'Red Entrance'), # Toby Creek / Harris
+		LOT_BLUE: (35.29884, -80.73715, 'Blue Entrance'), # Cameron Blvd.
+		LOT_SILVER: (35.31698, -80.72668, 'Silver Entrance'), # Mallard Creek
+		LOT_ORANGE: (35.31255, -80.74297, 'Orange Entrance'), # Lower Tryon
+		LOT_YELLOW: (35.31698, -80.72668, 'Yellow Entrance'), # Mallard Creek
+		LOT_PURPLE: (35.30185, -80.74655, 'Purple Entrance'), # Toby Creek / Harris
+		LOT_PINK: (35.30147, -80.73140, 'Pink Entrance'), # Campus Main Entrance
+		LOT_WHITE: (35.30725, -80.72470, 'White Entrance'), # John Kirk
+	}
 
 	# Only one ParkingLot per location
 	location = models.CharField(choices=LOT_CHOICES, unique=True,
