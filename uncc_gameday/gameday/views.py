@@ -67,7 +67,8 @@ class ParkingLotEntrance(APIView):
 		# The get_object_or_404 makes sure that it's a valid lot that will have
 		# an entry in the LOT_ENTRANCES dictionary.
 		parking_lot = get_object_or_404(ParkingLot, location=lot)
-		return Response(ParkingLot.LOT_ENTRANCES[lot])
+		lot_t = ParkingLot.LOT_ENTRANCES[lot]
+		return Response({'latitude': lot_t[0], 'longitude': lot_t[1], 'label': lot_t[2]})
 
 class RegisterUser(APIView):
 	"""
