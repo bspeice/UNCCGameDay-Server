@@ -56,6 +56,18 @@ class RateLot(APIView):
 	def get(self, request):
 		'Get the rating choice options'
 		return Response(ParkingRating.RATING_CHOICES)
+		
+class ParkingLotEntrance(APIView):
+	"""
+	Get the location of a parking lot  
+	**GET**: Get the latitude, longitude, and label of a parking lot
+	"""
+	
+	def get(self, request, lot):
+		# The get_object_or_404 makes sure that it's a valid lot that will have
+		# an entry in the LOT_ENTRANCES dictionary.
+		parking_lot = get_object_or_404(ParkingLot, location=lot)
+		return Response(ParkingLot.LOT_ENTRANCES[lot])
 
 class RegisterUser(APIView):
 	"""
