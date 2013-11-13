@@ -8,3 +8,4 @@ lib/
 local/
 .codeintel/
 uncc_gameday/uncc_gameday/settings.py
+uncc_gameday/static
