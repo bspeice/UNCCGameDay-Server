@@ -15,10 +15,10 @@ def api_root(request):
 	'Give some information about our API'
 	return Response({
 		'parking_lots': request.build_absolute_uri(reverse('parking-lots')),
-		'parking_lot': request.build_absolute_uri(reverse('parking-lot')),
+		#'parking_lot': request.build_absolute_uri(reverse('parking-lot')),
 		'parking_rating': request.build_absolute_uri(reverse('parking-rating')),
-		'get_registered_user': request.build_absolute_uri(reverse('get-registered-user')),
-		'get_registered_user_by_name': request.build_absolute_uri(reverse('get-registered-user-by-name')),
+		#'get_registered_user': request.build_absolute_uri(reverse('get-registered-user')),
+		#'get_registered_user_by_name': request.build_absolute_uri(reverse('get-registered-user-by-name')),
 		'register_user': request.build_absolute_uri(reverse('register-user'))
 	})
 
@@ -45,7 +45,7 @@ class RateLot(APIView):
 	"""
 	Rate a parking lot  	
 	**GET**: Get the rating choice options  
-	**POST**: Rate a parking lot
+	**POST**: Rate a parking lot. Please POST a body similar to: {"rating": <rating\>, "parking_lot": <parking_lot\>}
 	"""
 
 	@csrf_exempt
@@ -78,7 +78,7 @@ class RegisterUser(APIView):
 	"""
 	Handle Registration of users  
 	**GET**: Get the current information of a registered user by ID  
-	**POST**: Register a new user  
+	**POST**: Register a new user. Please POST the <first_name\> and <last_name\>
 	"""
 	def get(self, request):
 		'Get the first and last names of all registered users'
