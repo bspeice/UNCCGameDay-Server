@@ -15,7 +15,11 @@ def api_root(request):
 	'Give some information about our API'
 	return Response({
 		'parking_lots': request.build_absolute_uri(reverse('parking-lots')),
+		'parking_lot': request.build_absolute_uri(reverse('parking-lot')),
 		'parking_rating': request.build_absolute_uri(reverse('parking-rating')),
+		'get_registered_user': request.build_absolute_uri(reverse('get-registered-user')),
+		'get_registered_user_by_name': request.build_absolute_uri(reverse('get-registered-user-by-name')),
+		'register_user': request.build_absolute_uri(reverse('register-user'))
 	})
 
 class ParkingLotList(APIView):
