@@ -1,5 +1,6 @@
 from models import ParkingLot, ParkingRating
 from serializers import *
+from datetime import datetime, timedelta
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -77,12 +78,13 @@ class ParkingLotEntrance(APIView):
 class RegisterUser(APIView):
 	"""
 	Handle Registration of users  
-	**GET**: Get the current information of a registered user by ID  
+	**GET**: List all registered users 
 	**POST**: Register a new user. Please POST the <first_name\> and <last_name\>
 	"""
 	def get(self, request):
 		'Get the first and last names of all registered users'
-		users = RegisteredUser.objects.all()
+		one_week = timedelta(7)
+		users = RegisteredUser.objects.filte(date_registered__gt=datetime.now()-one_week)
 		users_s = SingleUserSerializer(users, many=True)
 		return Response(users_s.data)
 	
@@ -96,7 +98,7 @@ class RegisterUser(APIView):
 
 class ListRegisteredUsers(APIView):
 	"""
-	List all registered users.
+	Get the current information of a registered user by ID
 	We have a separate view set up so we can list all information about one
 	user at a time (this one), and one view to get just id, first_name,
 	and last_name of all users.
