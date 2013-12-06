@@ -84,7 +84,7 @@ class RegisterUser(APIView):
 	def get(self, request):
 		'Get the first and last names of all registered users'
 		one_week = timedelta(7)
-		users = RegisteredUser.objects.filte(date_registered__gt=datetime.now()-one_week)
+		users = RegisteredUser.objects.filter(date_registered__gt=datetime.now()-one_week)
 		users_s = SingleUserSerializer(users, many=True)
 		return Response(users_s.data)
 	

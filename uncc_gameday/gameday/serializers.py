@@ -22,4 +22,4 @@ class UserSerializer(serializers.ModelSerializer):
 class SingleUserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = RegisteredUser
-		fields = ('id', 'first_name', 'last_name')
+		fields = ('id', 'first_name', 'last_name', 'section', 'row')
