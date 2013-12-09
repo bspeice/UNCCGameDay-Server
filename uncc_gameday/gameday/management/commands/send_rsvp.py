@@ -16,6 +16,7 @@ class Command(BaseCommand):
 		
 		for user in RegisteredUser.objects.filter(date_registered__gt=
 				(datetime.today() - timedelta(7))):
-			message += user.first_name + ' ' + user.last_name + '\n'
+			message += user.first_name + ' ' + user.last_name + ' - ' + \
+					user.date_registered.strftime('%I:%M %p %m/%d/%Y') + '\n'
 
 		send_mail(subject, message, from_,recipient_list)
